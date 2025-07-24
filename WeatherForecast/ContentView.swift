@@ -7,12 +7,32 @@
 
 import SwiftUI
 
+struct Day: Identifiable {
+  var id: String { name }
+  
+  let name: String
+  let isRainy: Bool
+  let high: Int
+  let low: Int
+}
+
 struct ContentView: View {
+  let days = [
+    Day(name: "Mon", isRainy: true, high: 70, low: 60),
+    Day(name: "Tue", isRainy: false, high: 70, low: 60),
+    Day(name: "Wed", isRainy: true, high: 70, low: 60),
+    Day(name: "Thu", isRainy: false, high: 70, low: 60),
+    Day(name: "Fri", isRainy: true, high: 70, low: 60),
+    Day(name: "Sat", isRainy: false, high: 70, low: 60),
+    Day(name: "Sun", isRainy: true, high: 70, low: 60),
+  ]
     var body: some View {
-      HStack {
-        DayForecast(day: "Mon", isRainy: false, high: 70, low: 50)
-        
-        DayForecast(day: "Tue", isRainy: true, high: 60, low: 40)
+      ScrollView(.horizontal) {
+        HStack {
+          ForEach(days) { day in
+            DayForecast(day: day.name, isRainy: day.isRainy, high: day.high, low: day.low)
+          }
+        }
       }
     }
 }
