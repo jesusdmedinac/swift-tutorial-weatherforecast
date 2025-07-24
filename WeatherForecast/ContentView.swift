@@ -18,13 +18,13 @@ struct Day: Identifiable {
 
 struct ContentView: View {
   let days = [
-    Day(name: "Mon", isRainy: true, high: 70, low: 60),
-    Day(name: "Tue", isRainy: false, high: 70, low: 60),
-    Day(name: "Wed", isRainy: true, high: 70, low: 60),
-    Day(name: "Thu", isRainy: false, high: 70, low: 60),
-    Day(name: "Fri", isRainy: true, high: 70, low: 60),
-    Day(name: "Sat", isRainy: false, high: 70, low: 60),
-    Day(name: "Sun", isRainy: true, high: 70, low: 60),
+    Day(name: "Mon", isRainy: true, high: 100, low: 80),
+    Day(name: "Tue", isRainy: false, high: 80, low: 60),
+    Day(name: "Wed", isRainy: true, high: 60, low: 40),
+    Day(name: "Thu", isRainy: false, high: 40, low: 20),
+    Day(name: "Fri", isRainy: true, high: 20, low: 0),
+    Day(name: "Sat", isRainy: false, high: 0, low: -20),
+    Day(name: "Sun", isRainy: true, high: -20, low: -40),
   ]
     var body: some View {
       ScrollView(.horizontal) {
@@ -63,6 +63,16 @@ struct DayForecast: View {
     }
   }
   
+  func temperatureColor(_ temp: Int) -> Color {
+    if temp >= 80 {
+      return .orange
+    } else if temp >= 50 {
+      return .teal
+    } else {
+      return .mint
+    }
+  }
+  
   var body: some View {
     VStack {
       Text(day)
@@ -72,9 +82,10 @@ struct DayForecast: View {
         .padding(5)
       Text("High: \(high)")
         .fontWeight(Font.Weight.semibold)
+        .foregroundStyle(temperatureColor(high))
       Text("Low: \(low)")
         .fontWeight(Font.Weight.medium)
-        .foregroundStyle(Color.secondary)
+        .foregroundStyle(temperatureColor(low))
     }
     .padding()
   }
